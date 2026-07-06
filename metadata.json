@@ -1,0 +1,7 @@
+{
+  "name": "Hey Life 081225",
+  "description": "An interactive church application featuring a learning academy, personal challenges, community engagement, and AI-powered growth journeys to help users grow in their faith and connect with others.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}

@@ -1,0 +1,81 @@
+
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App, { SetupRouter } from './App';
+import { initializeAppIfNeeded } from './firebase/firebaseConfig';
+import './index.css'
+
+// Extend the Window interface
+declare global {
+  interface Window {
+    HEYCHURCH_APP_CONFIG?: {
+      GEMINI_API_KEY: string;
+      FIREBASE_CONFIG: any;
+      YOUTUBE_API_KEY?: string;
+      PAYPAL_CLIENT_ID?: string;
+    };
+    html2canvas?: any;
+    deferredInstallPrompt?: any;
+  }
+}
+
+// Handle PWA Installation Prompt
+window.addEventListener('beforeinstallprompt', (e) => {
+  // Prevent Chrome 67 and earlier from automatically showing the prompt
+  e.preventDefault();
+  // Stash the event so it can be triggered later via a button in Settings.
+  window.deferredInstallPrompt = e;
+  // Dispatch a custom event so components know they can show the install button
+  window.dispatchEvent(new Event('can-install-app'));
+});
+
+ Register Service Worker for PWA with Update Handling
+
+// Service Worker DISABLED to avoid caching issues
+if (false && 'serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    const swPath = '/sw.js';
+
+    const isLocalhost =
+      window.location.hostname === 'localhost' ||
+      window.location.hostname === '[::1]' ||
+      window.location.hostname.match(
+        /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
+      );
+
+    const isHttps = window.location.protocol === 'https:';
+
+    if (isHttps || isLocalhost) {
+      navigator.serviceWorker
+        .register(swPath)
+        .then((registration) => {
+          registration.onupdatefound = () => {
+            const installingWorker = registration.installing;
+            if (installingWorker) {
+              installingWorker.onstatechange = () => {
+                if (installingWorker.state === 'installed') {
+                  if (navigator.serviceWorker.controller) {
+                    console.log('New content available; please refresh.');
+                  } else {
+                    console.log('Content is cached for offline use.');
+                  }
+                }
+              };
+            }
+          };
+        })
+        .catch((err) => {
+          console.warn(
+            'Service Worker registration skipped or failed:',
+            err.message
+          );
+        });
+    } else {
+      console.log(
+        'Service worker skipped: Not on a secure origin or localhost.'
+      );
+    }
+  });
+}
+
+

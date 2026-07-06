@@ -1,0 +1,177 @@
+
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <title>Hey Life</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#133666">
+    <meta name="description" content="Grow in Spirit, Soul and Body with Hey Life.">
+    
+    <!-- Social Sharing Meta Tags (Open Graph / Twitter) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Hey Life">
+    <meta property="og:description" content="Grow in Spirit, Soul and Body.">
+    <meta property="og:image" content="/logo.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Hey Life">
+    <meta name="twitter:description" content="Grow in Spirit, Soul and Body.">
+    <meta name="twitter:image" content="/logo.png">
+
+    <!-- Fonts: Loading Outfit as a geometric alternative for Moderat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/logo.png">
+    
+    <!-- Tailwind CSS via CDN -->
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    
+    <!-- html2canvas for image sharing -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <!-- App & Tailwind Configuration -->
+    <script>
+        /**
+         * ------------------------------------------------------------
+         * APP CONFIGURATION
+         * ------------------------------------------------------------
+         */
+        window.HEYCHURCH_APP_CONFIG = {
+            GEMINI_API_KEY: 'AIzaSyDCii4s7QvXt3j7Pdmk9iJGHK_FPdkwnWs',
+            YOUTUBE_API_KEY: 'AIzaSyDAc4NuiyX38lQ-EcMw6fBZUkwC93JpICE',
+            PAYPAL_CLIENT_ID: '',
+            // Get this from Firebase Console > Project Settings > Cloud Messaging >
+            // Web Push certificates > "Generate key pair". Required for push notifications.
+            FIREBASE_VAPID_KEY: '',
+            FIREBASE_CONFIG: {
+                apiKey: "AIzaSyA3JBf5RXRGqJjuNQB_NbHo5cEdrzsMOJI",
+                authDomain: "gen-lang-client-0268998518.firebaseapp.com",
+                projectId: "gen-lang-client-0268998518",
+                storageBucket: "gen-lang-client-0268998518.firebasestorage.app",
+                messagingSenderId: "268759953231",
+                appId: "1:268759953231:web:b192e0c5771328c9dc9f3a",
+                measurementId: "G-5054ZE62FK"
+            }
+        };
+
+        // tailwind.config = {
+        //   theme: {
+        //     extend: {
+        //       fontFamily: {
+        //         // Setting Moderat/Outfit as the primary sans font for the app
+        //         sans: ['Moderat', 'Outfit', 'ui-sans-serif', 'system-ui', '-apple-system', 'sans-serif'],
+        //       },
+        //       colors: {
+        //         '[rgb(19_54_102)]': '#133666',
+        //         '[rgb(255_117_93)]': '#FF755D',
+        //         'hey-church-orange': {
+        //           300: '#FFB86C',
+        //           400: '#FF982B',
+        //           500: '#FF755D',
+        //           600: '#EF6D4D',
+        //           700: '#E85A37',
+        //           900: '#2E1C17',
+        //         },
+        //         '[rgb(59_130_246)]': '#3B82F6',
+        //         '[rgb(16_185_129)]': '#10B981',
+        //         '[#8B5CF6]': '#8B5CF6',
+        //         '[rgb(251_191_36)]': '#FBBF24',
+        //       },
+        //       animation: {
+        //         'shake': 'shake 0.5s cubic-bezier(.36,.07,.19,.97) both',
+        //         'spin-slow': 'spin 8s linear infinite',
+        //         'progress-indefinite': 'progress-indefinite 2s linear infinite',
+        //       },
+        //       keyframes: {
+        //         shake: {
+        //           '10%, 90%': { transform: 'translate3d(-1px, 0, 0)' },
+        //           '20%, 80%': { transform: 'translate3d(2px, 0, 0)' },
+        //           '30%, 50%, 70%': { transform: 'translate3d(-4px, 0, 0)' },
+        //           '40%, 60%': { transform: 'translate3d(4px, 0, 0)' },
+        //         },
+        //         'progress-indefinite': {
+        //           '0%': { transform: 'translateX(-100%)' },
+        //           '100%': { transform: 'translateX(200%)' }
+        //         }
+        //       }
+        //     }
+        //   }
+        // }
+    </script>
+    
+    <script type="importmap">
+{
+  "imports": {
+    "firebase/app": "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js",
+    "firebase/auth": "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js",
+    "firebase/firestore": "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.29.1",
+    "react-router-dom": "https://aistudiocdn.com/react-router-dom@^7.9.6",
+    "firebase/": "https://aistudiocdn.com/firebase@^12.6.0/",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.553.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "vite": "https://aistudiocdn.com/vite@^7.2.4",
+    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.1",
+    "@paypal/react-paypal-js": "https://aistudiocdn.com/@paypal/react-paypal-js@^8.9.2"
+  }
+}
+</script>
+
+    <style>
+        body {
+            overscroll-behavior-y: none;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+            font-family: 'Outfit', 'Moderat', sans-serif;
+        }
+        
+        input, textarea {
+            user-select: text;
+        }
+
+        .safe-pb {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+
+        input:-webkit-autofill,
+        textarea:-webkit-autofill,
+        select:-webkit-autofill {
+            -webkit-text-fill-color: white !important;
+            -webkit-box-shadow: 0 0 0px 1000px #374151 inset !important;
+            transition: background-color 5000s ease-in-out 0s;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #133666; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1); 
+            border-radius: 10px;
+        }
+
+        /* Branding Overrides */
+        h1, h2, h3, .font-black {
+            font-family: 'Outfit', 'Moderat', sans-serif;
+            font-weight: 900;
+        }
+    </style>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="bg-[rgb(19,54,102)] text-white antialiased overflow-x-hidden">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+</body>
+</html>
